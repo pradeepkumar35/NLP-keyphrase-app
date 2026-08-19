@@ -5,6 +5,7 @@ accelerate>=0.30
 sentence-transformers>=2.5,<5
 keybert>=0.7.0
 spacy>=3.7,<3.9
+en-core-web-sm==3.8.0
 nltk>=3.8
 numpy>=1.26,<3
 pandas>=2.0

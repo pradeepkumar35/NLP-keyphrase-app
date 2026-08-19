@@ -15,26 +15,21 @@ os.environ.setdefault("PYTHONUTF8", "1")
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 # ---------------------------------------------------------------------------
-# One-time environment setup: ensure spaCy model + NLTK data are present.
+# One-time environment setup: ensure NLTK data is present.
+# The spaCy model (en_core_web_sm) is installed via requirements.txt at build
+# time, because Streamlit's runtime site-packages are read-only.
 # ---------------------------------------------------------------------------
 def _ensure_deps():
     import nltk
-    for pkg in ["stopwords", "punkt", "wordnet", "omw-1.4",
-                "averaged_perceptron_tagger", "universal_tagset", "punkt_tab"]:
+    for pkg in ["stopwords", "punkt", "punkt_tab", "wordnet", "omw-1.4",
+                "averaged_perceptron_tagger", "universal_tagset"]:
         try:
-            nltk.data.find("tokenizers/punkt") if pkg == "punkt" else None
-            nltk.data.find("corpora/%s" % pkg.replace("-", "_"))
+            nltk.download(pkg, quiet=True)
         except Exception:
-            try:
-                nltk.download(pkg, quiet=True)
-            except Exception:
-                pass
-    try:
-        import spacy
-        spacy.load("en_core_web_sm")
-    except Exception:
-        import spacy.cli
-        spacy.cli.download("en_core_web_sm")
+            pass
+    # Model is pre-installed; loading verifies it. Raises a clear error if not.
+    import spacy
+    spacy.load("en_core_web_sm")
 
 
 # ---------------------------------------------------------------------------
