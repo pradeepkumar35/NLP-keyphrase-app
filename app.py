@@ -179,10 +179,13 @@ typed = st.text_area(
 st.session_state.input_text = typed
 
 if SAMPLES:
-    sample_name = st.selectbox("Or load a sample", ["— pick a sample —"] + list(SAMPLES.keys()))
-    if sample_name != "— pick a sample —":
-        st.session_state.input_text = SAMPLES[sample_name]
-        st.rerun()
+    st.markdown("**Or load a sample:**")
+    scols = st.columns(len(SAMPLES))
+    for col, (sname, stext) in zip(scols, SAMPLES.items()):
+        # Buttons don't persist selection, so this cannot re-trigger on rerun.
+        if col.button(sname, use_container_width=True):
+            st.session_state.input_text = stext
+            st.rerun()
 
 ctrl1, ctrl2 = st.columns([1, 2])
 with ctrl1:
