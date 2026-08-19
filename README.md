@@ -10,7 +10,7 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Deploy to Streamlit Community Cloud (free, no credit card)
+## Deploy to Streamlit Community Cloud
 1. Push this repo to GitHub (already done for `pradeepkumar35/NLP-keyphrase-app`).
 2. Go to https://share.streamlit.io → **Sign in with GitHub**.
 3. **New app** → select repo `NLP-keyphrase-app` → branch `main` → main file `app.py` → **Deploy**.
