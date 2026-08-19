@@ -167,12 +167,16 @@ st.divider()
 if "input_text" not in st.session_state:
     st.session_state.input_text = ""
 
-st.text_area(
+# NOTE: "input_text" is a plain session-state variable, NOT a widget key —
+# this lets us load a sample below without hitting Streamlit's "cannot modify
+# a widget after it is instantiated" error.
+typed = st.text_area(
     "Article text",
     height=220,
     placeholder="Paste a news article here (350–500 words works best)...",
-    key="input_text",
+    value=st.session_state.input_text,
 )
+st.session_state.input_text = typed
 
 if SAMPLES:
     sample_name = st.selectbox("Or load a sample", ["— pick a sample —"] + list(SAMPLES.keys()))
