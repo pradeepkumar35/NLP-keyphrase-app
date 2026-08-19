@@ -10,5 +10,10 @@ numpy>=1.24,<2.0
 pandas>=2.0
 scikit-learn>=1.3
 tqdm>=4.65
-# pke is not on PyPI; install from GitHub (requires git in packages.txt)
-git+https://github.com/boudinfl/pke.git
+
+# pke is vendored in ./pke (avoids a git+source build on Streamlit).
+# These are pke's runtime dependencies:
+networkx>=3.0
+unidecode>=1.3
+future>=0.18
+joblib>=1.0
